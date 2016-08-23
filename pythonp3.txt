@@ -17,8 +17,7 @@ for e in range(length-1):
 #   print(e)
 fw=input('Enter filename to write dot file: ')
 write_dot=open(fw,'w')
-write_dot.write('//Divyashree Hanaganahalli Boregowda'+ '\n')
-write_dot.write('//Roster No. #5'+ '\n')
+
 write_dot.write('//CMPS 5443'+ '\n')
 write_dot.write('digraph g{'+ '\n')
 write_dot.write('rankdir=LR'+ '\n')
