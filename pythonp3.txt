@@ -1,0 +1,47 @@
+import networkx as nx
+G = nx.DiGraph()
+rf=input('Enter filename to read graph data: ')
+read_text=open(rf,'r')   #sys.argv[0]
+for line in read_text:
+    l=line.split()
+    G.add_edge(l[0],l[1],w=int(l[2]))
+src=input('Enter the source vertex:' )#s
+dest=input('Enter destination vertex:' )#t
+path=nx.dijkstra_path(G,str(src),str(dest),'w')
+print(path)
+length=len(path)
+edge=[]
+for e in range(length-1):
+    edge.append([path[e],path[e+1]])
+#for e in edge:
+#   print(e)
+fw=input('Enter filename to write dot file: ')
+write_dot=open(fw,'w')
+write_dot.write('//Divyashree Hanaganahalli Boregowda'+ '\n')
+write_dot.write('//Roster No. #5'+ '\n')
+write_dot.write('//CMPS 5443'+ '\n')
+write_dot.write('digraph g{'+ '\n')
+write_dot.write('rankdir=LR'+ '\n')
+write_dot.write('size=\"3,3\"'+ '\n')
+write_dot.write('ratio=\"filled\"'+ '\n')
+write_dot.write('edge[style=\"bold\"]'+ '\n')
+write_dot.write('node[shape=\"circle\"]'+ '\n')
+write_dot.write('Divyashree_HB [shape=box];'+ '\n')
+for v in G.nodes():
+    if (v==str(src) or v==str(dest)):
+        write_dot.write(v+ '[style=filled,color=light];'+ '\n')
+    else:
+        write_dot.write(v+';'+'\n')
+for ed in G.edges_iter(data=True):
+    u=ed[0]
+    v=ed[1]
+    weight=G.get_edge_data(*ed)
+    d=weight.get('w')
+    if((u,v) in edge):
+            write_dot.write(u+'->'+v+ '[style="dotted",color="black", label="'+str(d)+'"];'+'\n')
+    else:
+            write_dot.write(u+'->'+v+ '[color="black", label="'+str(d)+'"];'+'\n')
+           
+write_dot.write('}')
+write_dot.close()
+    
